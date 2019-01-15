@@ -1,0 +1,66 @@
+
+<nz-spin [(nzSpinning)]="isSpinning" [nzDelay]="100">
+
+<div id="formbody" style="min-height:500px">
+  <nz-input-group nzSearch  [nzSuffix]="suffixButton">
+    <input type="text" nz-input placeholder="input search text" [(ngModel)]="keyword">
+  </nz-input-group>
+  <ng-template #suffixButton>
+    <button nz-button nzType="primary"  nzSearch (click)="search()" >Search</button>
+  </ng-template>
+
+<div *ngIf="wordData != null && code != 500">
+  <div class="infobox">
+    <div style="clear:both"></div>
+    <div class="keyword">
+
+      <span class="py" *ngIf="code == 201; else elseTemplate">
+        •
+      </span>
+      <ng-template  #elseTemplate>
+        <span class="pg">
+            •
+        </span>
+      </ng-template>
+      {{wordData.word}}
+      <nz-rate [ngModel]="starcount" [nzDisabled]="true" style="float:right"></nz-rate>
+
+
+    </div>
+
+    <div style="padding: 10px">
+        <nz-tag *ngIf="getTag(wordData.rank,'CET4')" [nzColor]="'blue'">CET4</nz-tag>
+        <nz-tag *ngIf="getTag(wordData.rank,'CET6')" [nzColor]="'green'">CET6</nz-tag>
+        <nz-tag *ngIf="getTag(wordData.rank,'TEM4')" [nzColor]="'gold'">TEM4</nz-tag>
+        <nz-tag *ngIf="getTag(wordData.rank,'TEM8')" [nzColor]="'volcano'">TEM8</nz-tag>  
+    </div>
+
+
+    <nz-divider nzText="音标" nzOrientation="left"></nz-divider>
+    <div class="value">
+        {{wordData.yinbiao}}
+    </div>
+    <nz-divider nzText="翻译" nzOrientation="left"></nz-divider>
+    <div class="value">
+        <!-- {{wordData.fanyi}} -->
+        <p *ngFor="let fy of wordData.fanyi">{{fy}}</p>
+    </div>
+    <nz-divider nzText="词组" nzOrientation="left"></nz-divider>
+    <div class="value">
+        <!-- {{wordData.wordgroup}} -->
+        <p *ngFor="let wg of wordData.wordgroup">{{wg.name}}{{wg.trans}}</p>
+    </div>
+  </div>
+
+</div>
+  <div *ngIf="wordData != null && code == 500 ">
+      <p class="pr sxxx">
+          未找到此单词
+      </p>
+  </div>
+
+  
+
+</div>
+
+</nz-spin>

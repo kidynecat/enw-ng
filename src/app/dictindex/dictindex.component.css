@@ -1,0 +1,32 @@
+#formbody{
+    padding: 20px;
+    font-size: 1em;
+}
+.sxxx{
+    margin-top: 10px;
+    text-align: center;
+    
+}
+.infobox{
+    padding: 15px 10px
+}
+.keyword{
+    font-weight: bold;
+    font-size: 1.4em;
+    margin-left: 5px;
+}
+.pg{
+    color:limegreen;
+}
+.py{
+    color:gold;
+}
+.pr{
+    color:tomato
+}
+.value{
+    padding-left: 20px;
+}
+.ant-rate{
+    font-size: 15px;
+}
