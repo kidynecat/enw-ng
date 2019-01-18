@@ -11,10 +11,16 @@ export class DictindexComponent implements OnInit {
   keyword = "";
   wordData = null;
   starcount = 0;
-
   code = 500;
+  isSpinning = false
 
-  isSpinning = false;
+  WordgroupCount =0
+  displayWordgroup = []
+  isWordgroupOpen =false
+
+  ExampleCount =0
+  displayExamplegroup = []
+  isExamplegroupOpen = false
 
   constructor(private enwServer:EnwServerApiService) { 
     
@@ -39,6 +45,29 @@ export class DictindexComponent implements OnInit {
             {
                 this.starcount = parseInt(tmpd.substr(-1))
             }
+
+            this.isWordgroupOpen = false
+            this.WordgroupCount = this.wordData.wordgroup.length
+
+            if(this.WordgroupCount >= 5)
+            {
+                this.displayWordgroup = this.wordData.wordgroup.slice(0,4)
+            }
+            else{
+                this.displayWordgroup = this.wordData.wordgroup
+            }
+
+            this.isExamplegroupOpen = false
+            this.ExampleCount = this.wordData.wordexample.length
+
+            if(this.ExampleCount >= 5)
+            {
+                this.displayExamplegroup = this.wordData.wordexample.slice(0,4)
+            }
+            else{
+                this.displayExamplegroup = this.wordData.wordexample
+            }
+
         }
 
         console.log(this.wordData)
@@ -47,6 +76,32 @@ export class DictindexComponent implements OnInit {
      })
     
   }
+
+  public openWordgroup(type:number){
+    if(type == 1)
+    {
+        this.displayWordgroup = this.wordData.wordgroup
+        this.isWordgroupOpen = true;
+    }
+    else{
+        this.displayWordgroup = this.wordData.wordgroup.slice(0,4)
+        this.isWordgroupOpen = false;
+    }
+  }
+
+  public openExamplegroup(type:number){
+    if(type == 1)
+    {
+        this.displayExamplegroup = this.wordData.wordexample
+        this.isExamplegroupOpen = true;
+    }
+    else{
+        this.displayExamplegroup = this.wordData.wordexample.slice(0,4)
+        this.isExamplegroupOpen = false;
+    }
+  }
+
+
 
   public getTag(rank:string,rankstring:string){
     if(rank.indexOf(rankstring) >= 0)

@@ -3,10 +3,10 @@
 
 <div id="formbody" style="min-height:500px">
   <nz-input-group nzSearch  [nzSuffix]="suffixButton">
-    <input type="text" nz-input placeholder="input search text" [(ngModel)]="keyword">
+    <input type="text" nz-input placeholder="input search text" [(ngModel)]="keyword" (keyup)="($event.which === 13)?search():0"  >
   </nz-input-group>
   <ng-template #suffixButton>
-    <button nz-button nzType="primary"  nzSearch (click)="search()" >Search</button>
+    <button nz-button nzType="primary"   nzSearch (click)="search()" >Search</button>
   </ng-template>
 
 <div *ngIf="wordData != null && code != 500">
@@ -46,10 +46,23 @@
         <p *ngFor="let fy of wordData.fanyi">{{fy}}</p>
     </div>
     <nz-divider nzText="词组" nzOrientation="left"></nz-divider>
-    <div class="value">
+    <div class="value divwordgroup">
         <!-- {{wordData.wordgroup}} -->
-        <p *ngFor="let wg of wordData.wordgroup">{{wg.name}}{{wg.trans}}</p>
+        <p *ngFor="let wg of displayWordgroup">{{wg.name}}<span class="wfanyi">{{wg.trans}}</span></p>
+
     </div>
+    <a class="openclose" href="#" *ngIf="!isWordgroupOpen && WordgroupCount >=5" (click)="openWordgroup(1)">显示全部</a>
+    <a class="openclose" href="#" *ngIf="isWordgroupOpen && WordgroupCount >=5" (click)="openWordgroup(0)">收起</a>
+
+    <nz-divider nzText="例句" nzOrientation="left"></nz-divider>
+    <div class="value divwordgroup">
+        <!-- {{wordData.wordgroup}} -->
+        <p *ngFor="let wg of displayExamplegroup">{{wg.example}}<span class="wfanyi">{{wg.memo}}</span></p>
+
+    </div>
+    <a class="openclose" href="javascript:void(0)" *ngIf="!isExamplegroupOpen && ExampleCount >=5" (click)="openExamplegroup(1)">显示全部</a>
+    <a class="openclose" href="javascript:void(0)" *ngIf="isExamplegroupOpen && ExampleCount >=5" (click)="openExamplegroup(0)">收起</a>
+
   </div>
 
 </div>
