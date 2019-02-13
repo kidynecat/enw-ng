@@ -2,13 +2,14 @@
 <nz-spin [(nzSpinning)]="isSpinning" [nzDelay]="100">
 
 <div id="formbody" style="min-height:500px">
+  <div class="divsearchbox">
   <nz-input-group nzSearch  [nzSuffix]="suffixButton">
     <input type="text" nz-input placeholder="input search text" [(ngModel)]="keyword" (keyup)="($event.which === 13)?search():0"  >
   </nz-input-group>
   <ng-template #suffixButton>
     <button nz-button nzType="primary"   nzSearch (click)="search()" >Search</button>
   </ng-template>
-
+</div>
 <div *ngIf="wordData != null && code != 500">
   <div class="infobox">
     <div style="clear:both"></div>
@@ -24,7 +25,6 @@
       </ng-template>
       {{wordData.word}}
       <nz-rate [ngModel]="starcount" [nzDisabled]="true" style="float:right"></nz-rate>
-
 
     </div>
 
@@ -57,10 +57,11 @@
     <nz-divider nzText="例句" nzOrientation="left"></nz-divider>
     <div class="value divwordgroup">
         <!-- {{wordData.wordgroup}} -->
-        <p *ngFor="let wg of displayExamplegroup">{{wg.example}}<span class="wfanyi">{{wg.memo}}</span></p>
+        <p *ngFor="let wg of displayExamplegroup">{{wg.example}} <br/> <span class="wfanyi">{{wg.memo}}</span></p>
 
     </div>
     <a class="openclose" href="javascript:void(0)" *ngIf="!isExamplegroupOpen && ExampleCount >=5" (click)="openExamplegroup(1)">显示全部</a>
+      
     <a class="openclose" href="javascript:void(0)" *ngIf="isExamplegroupOpen && ExampleCount >=5" (click)="openExamplegroup(0)">收起</a>
 
   </div>

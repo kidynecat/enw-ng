@@ -1,116 +1,124 @@
 import { Component, OnInit } from '@angular/core';
-import {EnwServerApiService} from '../enw-server-api.service'
+import { EnwServerApiService } from '../enw-server-api.service'
 
 @Component({
-  selector: 'app-dictindex',
-  templateUrl: './dictindex.component.html',
-  styleUrls: ['./dictindex.component.css']
+    selector: 'app-dictindex',
+    templateUrl: './dictindex.component.html',
+    styleUrls: ['./dictindex.component.css']
 })
 export class DictindexComponent implements OnInit {
 
-  keyword = "";
-  wordData = null;
-  starcount = 0;
-  code = 500;
-  isSpinning = false
+    keyword = "";
+    wordData = null;
+    starcount = 0;
+    code = 500;
+    isSpinning = false
 
-  WordgroupCount =0
-  displayWordgroup = []
-  isWordgroupOpen =false
+    WordgroupCount = 0
+    displayWordgroup = []
+    isWordgroupOpen = false
 
-  ExampleCount =0
-  displayExamplegroup = []
-  isExamplegroupOpen = false
+    ExampleCount = 0
+    displayExamplegroup = []
+    isExamplegroupOpen = false
 
-  constructor(private enwServer:EnwServerApiService) { 
-    
-  }
+    constructor(private enwServer: EnwServerApiService) {
 
-  ngOnInit() {
-  }
+    }
 
-  public search(){
-    //alert(this.keyword)
-    this.isSpinning = true
-     this.enwServer.searchWord(this.keyword).subscribe(res => {
-        this.wordData = res.response.data
-        this.code = res.response.code
-        this.keyword = ""
+    ngOnInit() {
+    }
 
-        this.starcount = 0;
-        if(this.code != 500 )
-        {
-            let tmpd = this.wordData.star
-            if(tmpd != "")
-            {
-                this.starcount = parseInt(tmpd.substr(-1))
-            }
+    public search() {
 
-            this.isWordgroupOpen = false
-            this.WordgroupCount = this.wordData.wordgroup.length
-
-            if(this.WordgroupCount >= 5)
-            {
-                this.displayWordgroup = this.wordData.wordgroup.slice(0,4)
-            }
-            else{
-                this.displayWordgroup = this.wordData.wordgroup
-            }
-
-            this.isExamplegroupOpen = false
-            this.ExampleCount = this.wordData.wordexample.length
-
-            if(this.ExampleCount >= 5)
-            {
-                this.displayExamplegroup = this.wordData.wordexample.slice(0,4)
-            }
-            else{
-                this.displayExamplegroup = this.wordData.wordexample
-            }
-
+        if (this.keyword == null || this.keyword === "") {
+            return
         }
 
-        console.log(this.wordData)
+        this.isSpinning = true
+        this.wordData  = null
+        this.enwServer.searchWord(this.keyword).subscribe(res => {
+            console.log(res.response.data)
 
-        this.isSpinning = false
-     })
-    
-  }
+            if(this.wordData == null)
+            {
+                this.wordData = {}
+                this.code = 500
+                this.isSpinning = false
+                return
+            }
 
-  public openWordgroup(type:number){
-    if(type == 1)
-    {
-        this.displayWordgroup = this.wordData.wordgroup
-        this.isWordgroupOpen = true;
-    }
-    else{
-        this.displayWordgroup = this.wordData.wordgroup.slice(0,4)
-        this.isWordgroupOpen = false;
-    }
-  }
+            this.wordData = res.response.data
+            this.code = res.response.code
+            this.keyword = ""
 
-  public openExamplegroup(type:number){
-    if(type == 1)
-    {
-        this.displayExamplegroup = this.wordData.wordexample
-        this.isExamplegroupOpen = true;
+            this.starcount = 0;
+            if (this.code != 500) {
+                let tmpd = this.wordData.star
+                if (tmpd != "") {
+                    this.starcount = parseInt(tmpd.substr(-1))
+                }
+
+                this.isWordgroupOpen = false
+                this.WordgroupCount = this.wordData.wordgroup.length
+
+                if (this.WordgroupCount >= 5) {
+                    this.displayWordgroup = this.wordData.wordgroup.slice(0, 4)
+                }
+                else {
+                    this.displayWordgroup = this.wordData.wordgroup
+                }
+
+                this.isExamplegroupOpen = false
+                this.ExampleCount = this.wordData.wordexample.length
+
+                if (this.ExampleCount >= 4) {
+                    this.displayExamplegroup = this.wordData.wordexample.slice(0, 3)
+                }
+                else {
+                    this.displayExamplegroup = this.wordData.wordexample
+                }
+
+            }
+
+            console.log(this.wordData)
+
+            this.isSpinning = false
+        })
+
     }
-    else{
-        this.displayExamplegroup = this.wordData.wordexample.slice(0,4)
-        this.isExamplegroupOpen = false;
+
+    public openWordgroup(type: number) {
+        if (type == 1) {
+            this.displayWordgroup = this.wordData.wordgroup
+            this.isWordgroupOpen = true;
+        }
+        else {
+            this.displayWordgroup = this.wordData.wordgroup.slice(0, 4)
+            this.isWordgroupOpen = false;
+        }
     }
-  }
+
+    public openExamplegroup(type: number) {
+        if (type == 1) {
+            this.displayExamplegroup = this.wordData.wordexample
+            this.isExamplegroupOpen = true;
+        }
+        else {
+            this.displayExamplegroup = this.wordData.wordexample.slice(0, 3)
+            this.isExamplegroupOpen = false;
+        }
+    }
 
 
 
-  public getTag(rank:string,rankstring:string){
-    if(rank.indexOf(rankstring) >= 0)
-    {
-        return true
+    public getTag(rank: string, rankstring: string) {
+        if (rank.indexOf(rankstring) >= 0) {
+            return true
+        }
+        else {
+            return false
+        }
     }
-    else{
-        return false
-    }
-}
 
 }

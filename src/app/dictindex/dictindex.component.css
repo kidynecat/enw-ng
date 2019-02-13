@@ -2,13 +2,24 @@
     padding: 20px;
     font-size: 1em;
 }
+.divsearchbox{
+ position: fixed;
+ left: 0;
+ right:0;
+ top:0;
+ padding: 15px;
+ background-color: white;
+ z-index: 99
+}
+
 .sxxx{
-    margin-top: 10px;
+    padding: 45px 10px 5px 10px ;
     text-align: center;
     
 }
 .infobox{
-    padding: 15px 10px
+    
+    padding: 40px 10px 5px 10px 
 }
 .keyword{
     font-weight: bold;
@@ -27,17 +38,17 @@
 .value{
     padding-left: 20px;
 }
-.ant-rate{
-    font-size: 13px;
+::ng-deep .ant-rate{
+    font-size: 14px ;
 }
 .wfanyi{
     color: darkgrey;
     padding-left: 10px;
 }
-.divwordgroup{
-    /* max-height: 260px;
-    overflow: auto; */
-}
+/* .divwordgroup{
+    max-height: 260px;
+    overflow: auto;
+} */
 .openclose{
     padding-left: 20px;
 }
