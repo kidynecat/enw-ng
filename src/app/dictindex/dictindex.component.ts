@@ -40,6 +40,9 @@ export class DictindexComponent implements OnInit {
         this.enwServer.searchWord(this.keyword).subscribe(res => {
             console.log(res.response.data)
 
+
+            this.wordData = res.response.data
+
             if(this.wordData == null)
             {
                 this.wordData = {}
@@ -48,7 +51,6 @@ export class DictindexComponent implements OnInit {
                 return
             }
 
-            this.wordData = res.response.data
             this.code = res.response.code
             this.keyword = ""
 
@@ -81,7 +83,7 @@ export class DictindexComponent implements OnInit {
 
             }
 
-            console.log(this.wordData)
+            //console.log(this.wordData)
 
             this.isSpinning = false
         })
