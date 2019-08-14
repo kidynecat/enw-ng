@@ -37,7 +37,7 @@ export class DictindexComponent implements OnInit {
 
         this.isSpinning = true
         this.wordData  = null
-        this.enwServer.searchWord(this.keyword).subscribe(res => {
+        let subscriber = this.enwServer.searchWord(this.keyword).subscribe(res => {
             console.log(res.response.data)
 
 
@@ -86,6 +86,8 @@ export class DictindexComponent implements OnInit {
             //console.log(this.wordData)
 
             this.isSpinning = false
+
+            subscriber.unsubscribe()
         })
 
     }
