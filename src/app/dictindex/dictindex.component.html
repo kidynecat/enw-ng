@@ -51,8 +51,8 @@
         <p *ngFor="let wg of displayWordgroup">{{wg.name}}<span class="wfanyi">{{wg.trans}}</span></p>
 
     </div>
-    <a class="openclose" href="#" *ngIf="!isWordgroupOpen && WordgroupCount >=5" (click)="openWordgroup(1)">显示全部</a>
-    <a class="openclose" href="#" *ngIf="isWordgroupOpen && WordgroupCount >=5" (click)="openWordgroup(0)">收起</a>
+    <a class="openclose" href="javascript:void(0)" *ngIf="!isWordgroupOpen && WordgroupCount >=5" (click)="openWordgroup(1)">显示全部</a>
+    <a class="openclose" href="javascript:void(0)" *ngIf="isWordgroupOpen && WordgroupCount >=5" (click)="openWordgroup(0)">收起</a>
 
     <nz-divider nzText="例句" nzOrientation="left"></nz-divider>
     <div class="value divwordgroup">
@@ -61,7 +61,6 @@
 
     </div>
     <a class="openclose" href="javascript:void(0)" *ngIf="!isExamplegroupOpen && ExampleCount >=5" (click)="openExamplegroup(1)">显示全部</a>
-      
     <a class="openclose" href="javascript:void(0)" *ngIf="isExamplegroupOpen && ExampleCount >=5" (click)="openExamplegroup(0)">收起</a>
 
   </div>

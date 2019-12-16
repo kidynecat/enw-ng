@@ -21,14 +21,13 @@ async function sleep(ms: number) {
 })
 export class EnwServerApiService {
 
-  private heroesUrl = 'http://192.168.30.99:3000';
+  private heroesUrl = 'https://www.nateplay.ltd/koaServer';
 
   constructor(private http: HttpClient) { }
 
   public searchWord(key: string): Observable<AjaxResponse> {
     const url = this.heroesUrl +"/getKeyWord?key=" +  key;
     let apiData = ajax(url);
-
     return apiData
   }
 
